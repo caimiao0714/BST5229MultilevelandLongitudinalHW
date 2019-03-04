@@ -1,0 +1,48 @@
+---
+title: "HW4 Miao Cai"
+author: "Miao Cai <miao.cai@slu.edu>"
+date: "3/4/2019"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+59 epileptic patients were randomized to treatment with Progabide (analog and prodrug of gamma-aminobutyric acid), or to placebo in addition to standard chemotherapy, so that 28 patients on placebo and 31 patients on progabide. The numbers of seizures were collected on each patient at baseline, 2, 4, 6 and 8 weeks after the baseline. Data is given on the blackboard.  
+
+Questions:
+
+1.	Convert these wide-form data to long-form. Refer to lecture 1, slide33.
+2.	Graphically examine the association between the number of seizures and week. What do the graphs indicate about the pattern of change of the numbers of seizures over time (positive or negative)?
+3.	Use the mixed model building strategies developed in lecture 7 to determine the best model. Report the G and V matrices at each step. For the final model, report the within-subject correlation and interpret all significant effects. 
+4.	Fit the GEE model with an appropriate working correlation matrix (EXCH, UN, AR(1), or TOEP).
+
+**Answers:**
+
+1. Wide format to long format:
+```{r}
+pacman::p_load(tidyverse, tidyr)
+dat = haven::read_sas('HW4/one.sas7bdat')
+
+datlong = dat %>% 
+  gather(key = 'week', value = 'seizure', -ID, -Treatment, -Age) %>% 
+  mutate(week = as.integer(substr(week, 8, 8))*2 - 2)
+
+knitr::kable(head(datlong), 
+             caption = 'First 5 observations of the converted long format data')
+```
+
+2. Graphics on the association between the number of seizures and week
+
+```{r}
+datlong %>% 
+  ggplot(aes(x = as.character(week), seizure)) + 
+  geom_boxplot() + theme_bw() +
+  xlab('Week') + ylab('The number of seizures')
+```
+
+```{r}
+readr::write_csv(datlong, 'HW4/hw4long.csv')
+```
+
