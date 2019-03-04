@@ -35,11 +35,10 @@ knitr::kable(head(datlong),
 
 2. Graphics on the association between the number of seizures and week
 
-```{r}
+```{r fig.width=10, fig.height=15}
 datlong %>% 
-  ggplot(aes(x = as.character(week), seizure)) + 
-  geom_boxplot() + theme_bw() +
-  xlab('Week') + ylab('The number of seizures')
+  ggplot(aes(week, seizure)) + geom_point() + geom_line() + 
+  facet_wrap(.~ID, ncol = 7) + theme_bw()
 ```
 
 ```{r}
