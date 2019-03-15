@@ -1,12 +1,14 @@
 ---
-title: "HW4 Miao Cai"
+title: | 
+  BST5220 Multilevel and Longitudinal Analysis
+  Homework 4
 author: "Miao Cai <miao.cai@slu.edu>"
 date: "3/4/2019"
 output: word_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, cache=TRUE)
 ```
 
 59 epileptic patients were randomized to treatment with Progabide (analog and prodrug of gamma-aminobutyric acid), or to placebo in addition to standard chemotherapy, so that 28 patients on placebo and 31 patients on progabide. The numbers of seizures were collected on each patient at baseline, 2, 4, 6 and 8 weeks after the baseline. Data is given on the blackboard.  
@@ -44,4 +46,8 @@ datlong %>%
 ```{r}
 readr::write_csv(datlong, 'HW4/hw4long.csv')
 ```
+
+3. Model 1: the intercept only model
+
+
 
